@@ -1,0 +1,89 @@
+public class ISBN {
+
+    /**
+     * @param args the command line arguments
+     */
+    private static boolean isbn10(String isbn) {
+        int n = Integer.parseInt(isbn);
+        int sum = 0;
+        int i;
+
+        System.out.print(" El ISBN es: " + isbn);
+        
+        for (i = 2; i <= 10; i++) {
+            int digit = n % 10;
+            sum = sum + i * digit;
+            n = n / 10;
+        }
+                
+        if (sum % 11 == 1) {
+            System.out.println("-X   " + sum);
+        } else if (sum % 11 == 0) {
+            System.out.println("-0"  + sum);
+        } else {
+            System.out.println(11 - (sum % 11) + sum);
+        }
+        return (sum % 11 == 1);
+    }
+
+
+    /* 
+            String mcd10;
+            int suma = 0;
+            int d;
+            
+            for (d = 0; d < 10; d++){
+                mcd10 = isbn.substring(d, d+1);
+                if(d < 9 || mcd10 != "X"){
+                    suma += Integer.parseInt(mcd10)* (10 - d);                    
+                }else {
+                    suma += 10;
+                }                
+            }            
+            return (suma % 11 == 0);
+        } */
+    private static boolean isbn13(String isbn) {
+
+        int mcd13;
+        int suma = 0;
+        int d;
+
+        for (d = 0; d < 13; d++) {
+            mcd13 = Integer.parseInt(isbn.substring(d, d + 1));
+            if (d % 2 == 0) {
+                suma += mcd13 * 1;
+            } else {
+                suma += mcd13 * 3;
+            }
+        }
+        return (suma % 13 == 0);
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        String isbn;
+
+        System.out.println(" Ingresa un ISBN");
+        isbn = sc.nextLine();
+        sc.close();
+
+        isbn = isbn.replaceAll("( |-)", "");
+
+        boolean isValid = false;
+
+        if (isbn.length() == 10) {
+            isValid = isbn10(isbn);
+        } else if (isbn.length() == 13) {
+            isValid = isbn13(isbn);
+        } else {
+            isValid = false;
+        }
+
+        if (isValid) {
+            System.out.println("\n El ISBN: " + isbn + " si es un ISBN valido.");
+        } else {
+            System.out.println("\n El ISBN: " + isbn + " no es un ISBN valido.");
+        }
+    }
+}
