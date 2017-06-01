@@ -1,16 +1,68 @@
 package com.example.javier.isbn;
 
+import android.content.Context;
+import android.speech.tts.TextToSpeech;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button btnValidar;
+    private EditText txtCodigo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btnValidar = (Button) findViewById(R.id.btnValidar);
+        txtCodigo = (EditText) findViewById(R.id.txtCodigo);
+
+        btnValidar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //se aplica el metodo para que al presionarse el boton se haga la compriobacion.
+
+            }
+        });
+    }
+
+    public class ISBN {
+
+        private boolean isbn10(String isbn) {
+
+            String mcdD10;
+            int suma = 0;
+
+            for (int d = 0; d < 10; d++) {
+                mcdD10 = isbn.substring(d, d + 1);
+                if (d < 9 || mcdD10 != "X") {
+                    suma += Integer.parseInt(mcdD10) * (10 - d);
+                } else {
+                    suma += 10;
+                }
+            }
+            return (suma % 11 == 0);
+        }
+
+
     }
 }
+
+
+
+
+
+
+
+
+
+
 /*
 public class ISBN {
 
