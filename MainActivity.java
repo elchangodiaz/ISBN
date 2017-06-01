@@ -95,66 +95,75 @@ public class MainActivity extends AppCompatActivity {
 /*
 public class ISBN {
 
+    private static boolean isbn10(String isbn) {
+        int n = Integer.parseInt(isbn);
+        int sum = 0;
+        int i;
 
-    private static boolean isbn10(String isbn){
-            
-            String mcdD10;
-            int suma = 0;
-            
-            for (int d = 0; d < 10; d++){
-                mcdD10 = isbn.substring(d, d+1);
-                if(d < 9 || mcdD10 != "X"){
-                    suma += Integer.parseInt(mcdD10)* (10 - d);                    
-                }else {
-                    suma += 10;
-                }                
-            }            
-            return (suma % 11 == 0);
-        }
+        System.out.print(" El ISBN es: " + isbn);
         
-    private static boolean isbn13(String isbn){
-            
-            int mcdD13;
-            int suma = 0;
-            
-            for (int d = 0; d < 13; d++){
-                mcdD13 = Integer.parseInt(isbn.substring(d, d+1));
-                if (d % 2 == 0){
-                    suma += mcdD13 *1;                    
-                }else {
-                    suma += mcdD13 *3;
-                }
-            }            
-            return (suma % 11 == 0);
+        for (i = 2; i <= 10; i++) {
+            int digit = n % 10;
+            sum = sum + i * digit;
+            n = n / 10;
         }
-        
+                
+        if (sum % 11 == 1) {
+            System.out.println("-X   " + sum);
+        } else if (sum % 11 == 0) {
+            System.out.println("-0"  + sum);
+        } else {
+            System.out.println(11 - (sum % 11) + sum);
+        }
+        return (sum % 11 == 1);
+    }
+
+
+ 
+    private static boolean isbn13(String isbn) {
+
+        int mcd13;
+        int suma = 0;
+        int d;
+
+        for (d = 0; d < 13; d++) {
+            mcd13 = Integer.parseInt(isbn.substring(d, d + 1));
+            if (d % 2 == 0) {
+                suma += mcd13 * 1;
+            } else {
+                suma += mcd13 * 3;
+            }
+        }
+        return (suma % 13 == 0);
+    }
+
     public static void main(String[] args) {
-        // TODO code application logic here
+
         Scanner sc = new Scanner(System.in);
         String isbn;
-        
-        System.out.println("Ingresa un ISBN");
+
+        System.out.println(" Ingresa un ISBN");
         isbn = sc.nextLine();
         sc.close();
-        
+
         isbn = isbn.replaceAll("( |-)", "");
-        
-        
+
         boolean isValid = false;
-        if(isbn.length() == 10){
-            isValid = isbn10(isbn);                        
-        }else if(isbn.length() == 13){
-            isValid = isbn13(isbn);            
-        }else {
+
+        if (isbn.length() == 10) {
+            isValid = isbn10(isbn);
+        } else if (isbn.length() == 13) {
+            isValid = isbn13(isbn);
+        } else {
             isValid = false;
         }
-        
-        if(isValid){
-            System.out.println(isbn + ": Es un ISBN Valido!");
-        }else {
-            System.out.println(isbn + ": No es un isbn Valido");            
+
+        if (isValid) {
+            System.out.println("\n El ISBN: " + isbn + " si es un ISBN valido.");
+        } else {
+            System.out.println("\n El ISBN: " + isbn + " no es un ISBN valido.");
         }
-    }                    
-}    
+    }
+}
 
 */
